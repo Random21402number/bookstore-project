@@ -5,6 +5,7 @@ async function main() {
     await client.connect();
     const db = client.db('bookstore');
 
+    // Вмъкване на данни в колекция authors - автори с различни националности и години на раждане
     const authors = [
       { _id: 1, name: "Джон Доу", birth_year: 1980, nationality: "САЩ" },
       { _id: 2, name: "Джейн Смит", birth_year: 1975, nationality: "Великобритания" },
@@ -18,7 +19,9 @@ async function main() {
       { _id: 10, name: "Силвия Стоянова", birth_year: 1983, nationality: "България" },
     ];
     await db.collection("authors").insertMany(authors);
+    console.log("Вмъкнати 10 автора");
 
+    // Вмъкване на данни в колекция books - книги с различни жанрове (масиви) и цени
     const books = [
       { title: "MongoDB за начинаещи", author_id: 1, genres: ["Бази данни"], price: 25.99 },
       { title: "Node.js в действие", author_id: 2, genres: ["Програмиране", "Node.js"], price: 29.99 },
@@ -32,7 +35,9 @@ async function main() {
       { title: "Data Science с Python", author_id: 10, genres: ["Наука за данни", "Python"], price: 28.00 },
     ];
     await db.collection("books").insertMany(books);
+    console.log("Вмъкнати 10 книги");
 
+    // Вмъкване на данни в колекция customers - клиенти с вложени обекти (адрес) и булеви стойности
     const customers = Array.from({ length: 10 }).map((_, i) => ({
       name: `Клиент ${i + 1}`,
       email: `client${i + 1}@mail.bg`,
@@ -43,7 +48,9 @@ async function main() {
       registered: true,
     }));
     await db.collection("customers").insertMany(customers);
+    console.log("Вмъкнати 10 клиента");
 
+    // Вмъкване на данни в колекция orders - поръчки с дати и числови стойности
     const orders = Array.from({ length: 10 }).map((_, i) => ({
       customer_name: `Клиент ${i + 1}`,
       book_title: books[i % books.length].title,
@@ -51,7 +58,9 @@ async function main() {
       order_date: new Date(2024, i % 12, (i + 1)),
     }));
     await db.collection("orders").insertMany(orders);
+    console.log("Вмъкнати 10 поръчки");
 
+    // Вмъкване на данни в колекция reviews - отзиви с числови оценки и текстови коментари
     const reviews = Array.from({ length: 10 }).map((_, i) => ({
       book_title: books[i % books.length].title,
       reviewer: `Клиент ${i + 1}`,
@@ -59,11 +68,12 @@ async function main() {
       comment: "Добра книга!"
     }));
     await db.collection("reviews").insertMany(reviews);
+    console.log("Вмъкнати 10 отзива");
 
-    console.log("Всички данни са успешно вмъкнати.");
+    console.log("Всички данни са успешно вмъкнати в базата данни.");
   } finally {
     await client.close();
   }
 }
 
-main();
+main().catch(console.error);
