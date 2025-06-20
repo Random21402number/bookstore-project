@@ -1,0 +1,16 @@
+{
+  "name": "bookstore-project",
+  "version": "1.0.0",
+  "description": "Този проект използва MongoDB за симулация на базова онлайн книжарница с колекции като книги, автори, клиенти, поръчки и отзиви.",
+  "main": "db.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^6.17.0",
+    "monodb": "^1.5.1"
+  }
+}
